@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#073b4c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ㄱㅇㅈ" />
+  <title>ㄱㅇㅈ — 동해 낚시 초보 가이드</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>ㄱㅇㅈ</h1>
+      <p>낚시, 갈지 말지 쉽게</p>
+    </div>
+    <button id="installBtn" class="install" hidden>홈 화면 설치</button>
+  </header>
+
+  <main>
+    <section id="today" class="page active">
+      <div class="toolbar">
+        <select id="region" aria-label="지역 선택">
+          <option>속초</option><option>양양</option><option>강릉</option><option>동해</option>
+          <option>삼척</option><option>울진</option><option>영덕</option><option>포항</option>
+        </select>
+        <button id="locationBtn">📍 현재 위치</button>
+      </div>
+
+      <article class="hero">
+        <div>
+          <span>오늘 낚시 점수</span>
+          <strong id="score">78</strong>
+          <b id="verdict">가볼 만해요 👍</b>
+        </div>
+        <div class="mode">왕초보 모드</div>
+      </article>
+
+      <div class="warning">⚠️ 오후에는 바람이 강해질 수 있어요. 테트라포드 출입은 피하고 구명조끼를 착용하세요.</div>
+
+      <div class="grid">
+        <article>
+          <h2>🌊 오늘 물때</h2>
+          <p class="lead">조금</p>
+          <p>물살이 비교적 약해 초보자가 채비를 다루기 쉬운 날이에요.</p>
+        </article>
+        <article>
+          <h2>⏰ 추천 출조 시간</h2>
+          <p class="lead">14:30–17:00</p>
+          <p>물이 들어오는 시간과 해 질 무렵이 겹쳐 입질을 기대해볼 수 있어요.</p>
+        </article>
+      </div>
+
+      <article>
+        <h2>간조 · 만조</h2>
+        <div class="tides">
+          <div><span>간조</span><b>10:12</b></div>
+          <div><span>만조</span><b>16:35</b></div>
+          <div><span>간조</span><b>22:40</b></div>
+        </div>
+        <p class="hint">현재는 바닷물이 들어오는 중이에요.</p>
+      </article>
+
+      <article>
+        <h2>바다 상태</h2>
+        <div class="stats">
+          <div>🌬️<b>4.2m/s</b><span>바람 보통</span></div>
+          <div>🌊<b>0.7m</b><span>파도 낮음</span></div>
+          <div>🌡️<b>22.4℃</b><span>수온</span></div>
+          <div>💧<b>맑음</b><span>물색</span></div>
+          <div>🌙<b>42%</b><span>달 밝기</span></div>
+        </div>
+      </article>
+
+      <article>
+        <div class="section-head">
+          <h2>지금 예상 어종</h2>
+          <div>
+            <button class="segment active" data-period="day">낮</button>
+            <button class="segment" data-period="night">밤</button>
+          </div>
+        </div>
+        <div id="fishList"></div>
+      </article>
+
+      <article class="coach">
+        <h2>AI 오늘의 한마디</h2>
+        <p id="coachText">초보자는 오후에 방파제 안쪽에서 전갱이 카드채비를 먼저 시도해보세요. 바람이 강해지면 즉시 철수하세요.</p>
+        <small>현재 v1은 예시 규칙 기반 추천이며 실시간 API는 아직 연결되지 않았습니다.</small>
+      </article>
+    </section>
+
+    <section id="spots" class="page">
+      <h2>동해안 낚시 포인트</h2>
+      <div id="spotList" class="card-list"></div>
+    </section>
+
+    <section id="guide" class="page">
+      <h2>어종 · 채비 도감</h2>
+      <input id="fishSearch" type="search" placeholder="어종 이름 검색" />
+      <div id="guideList"></div>
+    </section>
+
+    <section id="learn" class="page">
+      <h2>왕초보 낚시교실</h2>
+      <div id="lessonList"></div>
+      <article>
+        <h2>금어기 · 금지체장 주의</h2>
+        <p>어종, 지역, 시기에 따라 규정이 달라질 수 있습니다. 출조 전 반드시 최신 공식 수산 규정을 확인하세요.</p>
+      </article>
+    </section>
+
+    <section id="records" class="page">
+      <h2>내 낚시 기록</h2>
+      <form id="recordForm">
+        <input id="recordPlace" placeholder="장소" required />
+        <input id="recordFish" placeholder="잡은 어종" required />
+        <input id="recordSize" type="number" min="0" step="0.1" placeholder="크기(cm)" />
+        <textarea id="recordMemo" placeholder="메모"></textarea>
+        <button type="submit">기록 저장</button>
+      </form>
+      <div id="recordList"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="active" data-page="today">오늘</button>
+    <button data-page="spots">포인트</button>
+    <button data-page="guide">어종·채비</button>
+    <button data-page="learn">초보교실</button>
+    <button data-page="records">내 기록</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
